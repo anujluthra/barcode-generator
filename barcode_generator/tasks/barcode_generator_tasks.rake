@@ -1,5 +1,5 @@
 # desc "Explaining what the task does"
- task :barcode_generator do
+ task :barcode_setup do
   require "ftools"
   Dir.mkdir("#{RAILS_ROOT}/public/images/barcodes", 0700)
   dirc = "#{RAILS_ROOT}/public/fonts/"

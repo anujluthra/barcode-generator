@@ -1,5 +1,6 @@
 # Include hook code here
 require 'rubygems'
-require 'rmagick'
+gem 'rmagick'
+require 'RMagick'
 require 'config'
 require 'barcode_generator'

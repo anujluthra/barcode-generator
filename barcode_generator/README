@@ -11,7 +11,7 @@ the images are stored in /public/images/barcodes subdir.
 
 Installation:
 install from svn : http://barcode-generator.googlecode.com/svn/trunk/
-and then run the rake task (rake barcode_generator) to create required dirs and installing the fonts ttf files in public dir.
+and then run the rake task (rake barcode_setup) to create required dirs and installing the fonts ttf files in public dir.
 
 Barcode font (cod39) is a freeware and has been source from : http://www.barcodesinc.com/free-barcode-font/
 according to its author Matthew Welch :

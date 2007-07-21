@@ -8,6 +8,7 @@ module ActionView
    class Base
     def barcode id
       id.upcase!
+      normalized_id = ASTERISKIZE ? "*#{id}*" : id
       canvas = Magick::ImageList.new
       canvas.new_image(BARCODE_COLUMNS, BARCODE_ROWS)      
       text = Magick::Draw.new
@@ -15,7 +16,7 @@ module ActionView
       text.pointsize = BARCODE_POINTSIZE
       text.fill = BARCODE_COLOR
       text.gravity = Magick::CenterGravity      
-      text.annotate(canvas, 0,0,2,2, id)      
+      text.annotate(canvas, 0,0,2,2, normalized_id)      
       canvas.write("#{RAILS_ROOT}/public/images/barcodes/#{id}.png")
       return image_tag("barcodes/#{id}.png")
     end
