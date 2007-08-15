@@ -10,39 +10,36 @@
 # supports.
 
 # Extending <tt>ActionView::Base</tt> to support rendering themes
-
+require 'imagemagick_wrapper'
 module ActionView
-   
    # Extending <tt>ActionView::Base</tt> to support rendering themes
    class Base
+    include ImageMagickWrapper
     def barcode(id, options = {:encoding_format => DEFAULT_ENCODING })
       id.upcase!
       normalized_id = ASTERISKIZE ? "*#{id}*" : id
-
-      #generate the barcode object 
-      options[:encoding_format] = DEFAULT_ENCODING unless options[:encoding_format]
-      bc = Gbarcode.barcode_create(normalized_id)
-      bc.width  = options[:width]          if options[:width]
-      bc.height = options[:height]         if options[:height]
-      bc.scalef = options[:scaling_factor] if options[:scaling_factor]
-      bc.xoff   = options[:xoff]           if options[:xoff]
-      bc.yoff   = options[:yoff]           if options[:yoff]
-      bc.margin = options[:margin]         if options[:margin]
-      
-      #encode the barcode object in desired format
-      Gbarcode.barcode_encode(bc, options[:encoding_format])
-      read_pipe, write_pipe  = IO.pipe
-      Gbarcode.barcode_print(bc, write_pipe, Gbarcode::BARCODE_OUT_EPS)
-      write_pipe.close()
-      #convert the eps to png image with help of rmagick
-      eps = read_pipe.read()
-      im = Magick::Image::read_inline(Base64.b64encode(eps)).first
-      im.format = DEFAULT_FORMAT
-      #block ensures that the file is closed after write operation
-      File.open("#{RAILS_ROOT}/public/images/barcodes/#{id}.png",'w') do |image|
-        im.write(image)  
+      eps = "#{RAILS_ROOT}/public/images/barcodes/#{id}.eps"
+      out = "#{RAILS_ROOT}/public/images/barcodes/#{id}.#{DEFAULT_FORMAT}"
+      unless File.exists?(out)
+        #generate the barcode object 
+        options[:encoding_format] = DEFAULT_ENCODING unless options[:encoding_format]
+        bc = Gbarcode.barcode_create(normalized_id)
+        bc.width  = options[:width]          if options[:width]
+        bc.height = options[:height]         if options[:height]
+        bc.scalef = options[:scaling_factor] if options[:scaling_factor]
+        bc.xoff   = options[:xoff]           if options[:xoff]
+        bc.yoff   = options[:yoff]           if options[:yoff]
+        bc.margin = options[:margin]         if options[:margin]
+        Gbarcode.barcode_encode(bc, options[:encoding_format])
+        #encode the barcode object in desired format
+        File.open(eps,'wb') do |eps_img| 
+          Gbarcode.barcode_print(bc, eps_img, Gbarcode::BARCODE_OUT_EPS)
+          eps_img.close
+          convert_to_png(eps, out)
+          File.delete(eps)
+        end
       end
-      return image_tag("barcodes/#{id}.png")
+      image_tag("barcodes/#{id}.png")
     end
    end
-end
+ end

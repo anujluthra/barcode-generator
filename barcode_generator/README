@@ -39,5 +39,7 @@ in this case your view will look like :
 
 Installation:
 install from svn : http://barcode-generator.googlecode.com/svn/trunk/ 
-make sure that you install gems for rmagick and gbarcode first!!!
+make sure that you install 
+ - gem for gbarcode
+ - install native ImageMagick library 
 and then run the rake task : rake barcode_setup
