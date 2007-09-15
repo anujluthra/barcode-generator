@@ -15,13 +15,16 @@ module ActionView
    # Extending <tt>ActionView::Base</tt> to support rendering themes
    class Base
     include ImageMagickWrapper
+    
     def barcode(id, options = {:encoding_format => DEFAULT_ENCODING })
       id.upcase!
       normalized_id = ASTERISKIZE ? "*#{id}*" : id
       eps = "#{RAILS_ROOT}/public/images/barcodes/#{id}.eps"
       out = "#{RAILS_ROOT}/public/images/barcodes/#{id}.#{DEFAULT_FORMAT}"
+      
+      #dont generate a barcode again, if already generated
       unless File.exists?(out)
-        #generate the barcode object 
+        #generate the barcode object with all supplied options
         options[:encoding_format] = DEFAULT_ENCODING unless options[:encoding_format]
         bc = Gbarcode.barcode_create(normalized_id)
         bc.width  = options[:width]          if options[:width]
@@ -31,15 +34,20 @@ module ActionView
         bc.yoff   = options[:yoff]           if options[:yoff]
         bc.margin = options[:margin]         if options[:margin]
         Gbarcode.barcode_encode(bc, options[:encoding_format])
+        
         #encode the barcode object in desired format
         File.open(eps,'wb') do |eps_img| 
           Gbarcode.barcode_print(bc, eps_img, Gbarcode::BARCODE_OUT_EPS)
           eps_img.close
           convert_to_png(eps, out)
-          File.delete(eps)
         end
+        
+        #delete the eps image, no need to accummulate cruft
+        File.delete(eps)
       end
+      #send the html image tag
       image_tag("barcodes/#{id}.png")
     end
+    
    end
  end
