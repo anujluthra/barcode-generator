@@ -18,7 +18,6 @@ module ActionView
     
     def barcode(id, options = {:encoding_format => DEFAULT_ENCODING })
       id.upcase!
-      normalized_id = ASTERISKIZE ? "*#{id}*" : id
       eps = "#{RAILS_ROOT}/public/images/barcodes/#{id}.eps"
       out = "#{RAILS_ROOT}/public/images/barcodes/#{id}.#{DEFAULT_FORMAT}"
       
@@ -26,7 +25,7 @@ module ActionView
       unless File.exists?(out)
         #generate the barcode object with all supplied options
         options[:encoding_format] = DEFAULT_ENCODING unless options[:encoding_format]
-        bc = Gbarcode.barcode_create(normalized_id)
+        bc = Gbarcode.barcode_create(id)
         bc.width  = options[:width]          if options[:width]
         bc.height = options[:height]         if options[:height]
         bc.scalef = options[:scaling_factor] if options[:scaling_factor]
