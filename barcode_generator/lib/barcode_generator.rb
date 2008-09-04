@@ -34,9 +34,15 @@ module ActionView
         bc.margin = options[:margin]         if options[:margin]
         Gbarcode.barcode_encode(bc, options[:encoding_format])
         
+        if options[:no_ascii]
+          print_options = Gbarcode::BARCODE_OUT_EPS|Gbarcode::BARCODE_NO_ASCII
+        else
+          print_options = Gbarcode::BARCODE_OUT_EPS
+        end
+        
         #encode the barcode object in desired format
         File.open(eps,'wb') do |eps_img| 
-          Gbarcode.barcode_print(bc, eps_img, Gbarcode::BARCODE_OUT_EPS)
+          Gbarcode.barcode_print(bc, eps_img, print_options)
           eps_img.close
           convert_to_png(eps, out)
         end

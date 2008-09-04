@@ -28,6 +28,8 @@ to customize your barcodes, you can optionally pass following information in you
  - xoff
  - yoff
  - margin
+ - no_ascii (accepts boolean true or false, prevents the ascii string from printing at 
+             the bottom of the barcode)
  
 in this case your view will look like :
 <%= barcode 'ANUJ', :height => 100, 
