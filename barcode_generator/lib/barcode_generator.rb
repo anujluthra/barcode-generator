@@ -12,14 +12,21 @@
 # Extending <tt>ActionView::Base</tt> to support rendering themes
 require 'imagemagick_wrapper'
 module ActionView
-   # Extending <tt>ActionView::Base</tt> to support rendering themes
-   class Base
+  # Extending <tt>ActionView::Base</tt> to support rendering themes
+  class Base
     include ImageMagickWrapper
+
+
+    VALID_BARCODE_OPTIONS = [:encoding_format, :output_format, :width, :height, :scaling_factor, :xoff, :yoff, :margin	]
     
     def barcode(id, options = {:encoding_format => DEFAULT_ENCODING })
+
+      options.assert_valid_keys(VALID_BARCODE_OPTIONS)
+      output_format = options[:output_format] ? options[:output_format] : DEFAULT_FORMAT
+
       id.upcase!
       eps = "#{RAILS_ROOT}/public/images/barcodes/#{id}.eps"
-      out = "#{RAILS_ROOT}/public/images/barcodes/#{id}.#{DEFAULT_FORMAT}"
+      out = "#{RAILS_ROOT}/public/images/barcodes/#{id}.#{output_format}"
       
       #dont generate a barcode again, if already generated
       unless File.exists?(out)
@@ -51,8 +58,8 @@ module ActionView
         File.delete(eps)
       end
       #send the html image tag
-      image_tag("barcodes/#{id}.png")
+      image_tag("barcodes/#{id}.#{output_format}")
     end
     
-   end
- end
+  end
+end
