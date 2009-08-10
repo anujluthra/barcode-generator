@@ -1,6 +1,8 @@
 BarcodeGenerator
 ================
-Author : Anuj Luthra
+
+### Author : Anuj Luthra
+
 Barcode generator makes generating/displaying bar-codes for certain 
 alphanumeric ids a piece of cake.
 It uses Gbarcode for encoding barcode data and then rmagick to generate 
@@ -9,8 +11,7 @@ images out of it for displaying in views.
 This way we can generate any barcode type which Gbarcode -> Gnome Barcode project
 supports.
 
-USAGE:
-
+### USAGE:
 its as simple as saying 
 <%= barcode 'FJJ4JD'%> 
 
@@ -18,9 +19,8 @@ This will generate a barcode for FJJ4JD in BARCODE_39 format with default width
 and height and include it in the view.
 the images are stored in /public/images/barcodes subdir.
 
-Options Options Options ..
-
-to customize your barcodes, you can optionally pass following information in your views 
+### Options Options Options:
+To customize your barcodes, you can optionally pass following information in your views 
  - encoding_format (Gbarcode constants for eg. Gbarcode::BARCODE_128 etc..)
  - width
  - height
@@ -32,16 +32,38 @@ to customize your barcodes, you can optionally pass following information in you
              the bottom of the barcode)
  
 in this case your view will look like :
+`
 <%= barcode 'ANUJ', :height => 100, 
                     :width  => 400,
 					:margin => 100,
 					:xoff   => 20,
 					:yoff   => 40
 %> 
+`
 
-Installation:
-install from svn : http://barcode-generator.googlecode.com/svn/trunk/ 
+### Installation:
+install from git : git://github.com/anujluthra/barcode-generator.git
 make sure that you install 
  - gem for gbarcode
  - install native ImageMagick library 
 and then run the rake task : rake barcode_setup
+
+### Supported Barcode Formats:
+Gbarcode as of now allows us to generate barcodes in following formats:
+        BARCODE_EAN
+        BARCODE_UPC
+        BARCODE_ISBN
+        BARCODE_128B
+        BARCODE_128C
+        BARCODE_128
+        BARCODE_128RAW
+        BARCODE_39
+        BARCODE_I25
+        BARCODE_CBR
+        BARCODE_MSI
+        BARCODE_PLS
+        BARCODE_93
+        BARCODE_ANY
+        BARCODE_NO_CHECKSUM
+for more information on Gbarcode visit http://gbarcode.rubyforge.org/rdoc/index.html
+
