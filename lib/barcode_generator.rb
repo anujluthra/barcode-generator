@@ -17,7 +17,7 @@ module ActionView
     include ImageMagickWrapper
 
 
-    VALID_BARCODE_OPTIONS = [:encoding_format, :output_format, :width, :height, :scaling_factor, :xoff, :yoff, :margin	]
+    VALID_BARCODE_OPTIONS = [:encoding_format, :output_format, :width, :height, :scaling_factor, :xoff, :yoff, :margin, :resolution, :antialias	]
     
     def barcode(id, options = {:encoding_format => DEFAULT_ENCODING })
 
@@ -51,7 +51,7 @@ module ActionView
         File.open(eps,'wb') do |eps_img| 
           Gbarcode.barcode_print(bc, eps_img, print_options)
           eps_img.close
-          convert_to_png(eps, out)
+          convert_to_png(eps, out, options[:resolution], options[:antialias])
         end
         
         #delete the eps image, no need to accummulate cruft
