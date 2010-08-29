@@ -12,6 +12,10 @@ images out of it for displaying in views.
 This way we can generate any barcode type which Gbarcode -> Gnome Barcode project
 supports.
 
+## Ruby1.9 note
+
+ please use ruby1.9 compatible gbarcode at http://github.com/ahaller/gbarcode . Good work Andreas Haller
+
 ### USAGE:
 its as simple as saying 
 `<%= barcode 'FJJ4JD'%> `
