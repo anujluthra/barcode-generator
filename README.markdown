@@ -14,7 +14,7 @@ supports.
 
 ## Ruby1.9 note
 
- please use ruby1.9 compatible gbarcode at (http://github.com/ahaller/gbarcode) . Good work Andreas Haller
+ please use ruby1.9 compatible gbarcode at [github repository by andreas](http://github.com/ahaller/gbarcode) . Good work mate.
 
 ### USAGE:
 its as simple as saying 
@@ -73,5 +73,5 @@ Gbarcode as of now allows us to generate barcodes in following formats:
         BARCODE_ANY
         BARCODE_NO_CHECKSUM
 
-for more information on Gbarcode visit (http://gbarcode.rubyforge.org/rdoc/index.html)
+for more information on Gbarcode visit [rubyforge home of gbarcode](http://gbarcode.rubyforge.org/rdoc/index.html)
 
