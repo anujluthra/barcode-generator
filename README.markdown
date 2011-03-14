@@ -48,7 +48,7 @@ in this case your view will look like :
 
 
 ### Installation:
-install from git : script/install plugin git://github.com/anujluthra/barcode-generator.git
+install from git : script/install plugin git://github.com/stympy/barcode-generator.git
 make sure that you install 
 
  1. gem for gbarcode
