@@ -53,7 +53,6 @@ make sure that you install
 
  1. gem for gbarcode
  2. install native ImageMagick library 
- 3. run the rake task : rake barcode_setup
 
 ### Supported Barcode Formats:
 Gbarcode as of now allows us to generate barcodes in following formats:
