@@ -1,6 +1,6 @@
 BarcodeGenerator
 ================
-!(http://farm2.static.flickr.com/1378/1125817164_6f57adb24a_o.png "sample barcode image")
+![anuj barcoded](http://farm2.static.flickr.com/1378/1125817164_6f57adb24a_o.png "sample barcode image")
 
 ### Author : Anuj Luthra
 
@@ -11,6 +11,10 @@ images out of it for displaying in views.
 
 This way we can generate any barcode type which Gbarcode -> Gnome Barcode project
 supports.
+
+## Ruby1.9 note
+
+ please use ruby1.9 compatible gbarcode at [github repository by andreas](http://github.com/ahaller/gbarcode) . Good work mate.
 
 ### USAGE:
 its as simple as saying 
@@ -44,7 +48,7 @@ in this case your view will look like :
 
 
 ### Installation:
-install from git : git://github.com/anujluthra/barcode-generator.git
+install from git : script/install plugin git://github.com/anujluthra/barcode-generator.git
 make sure that you install 
 
  1. gem for gbarcode
@@ -69,5 +73,5 @@ Gbarcode as of now allows us to generate barcodes in following formats:
         BARCODE_ANY
         BARCODE_NO_CHECKSUM
 
-for more information on Gbarcode visit http://gbarcode.rubyforge.org/rdoc/index.html
+for more information on Gbarcode visit [rubyforge home of gbarcode](http://gbarcode.rubyforge.org/rdoc/index.html)
 
