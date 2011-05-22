@@ -25,8 +25,14 @@ module ActionView
       output_format = options[:output_format] ? options[:output_format] : DEFAULT_FORMAT
 
       id.upcase!
-      eps = "#{RAILS_ROOT}/public/images/barcodes/#{id}.eps"
-      out = "#{RAILS_ROOT}/public/images/barcodes/#{id}.#{output_format}"
+      # This gives us a partitioned path so as not to have thousands
+      # of files in the same directory.  Also, put the files in
+      # public system since capistrano symlinks this path across
+      # deployments by default
+      path = Rails.root.join('public', 'system', 'barcodes', *Digest::MD5.hexdigest(id).first(9).scan(/.../))
+      FileUtils.mkdir_p(path)
+      eps = "#{path}/#{id}.eps"
+      out = "#{path}/#{id}.#{output_format}"
       
       #dont generate a barcode again, if already generated
       unless File.exists?(out)
@@ -58,7 +64,7 @@ module ActionView
         File.delete(eps)
       end
       #send the html image tag
-      image_tag("barcodes/#{id}.#{output_format}")
+      image_tag(out.gsub(/.*public\/system/, '/system'))
     end
     
   end
