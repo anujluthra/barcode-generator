@@ -22,7 +22,7 @@ its as simple as saying
 
 This will generate a barcode for FJJ4JD in BARCODE_39 format with default width
 and height and include it in the view.
-the images are stored in /public/images/barcodes subdir.
+the images are stored in /public/system/barcodes subdir.
 
 ### Options Options Options:
 To customize your barcodes, you can optionally pass following information in your views 
@@ -49,6 +49,7 @@ in this case your view will look like :
 
 ### Installation:
 install from git : script/install plugin git://github.com/anujluthra/barcode-generator.git
+
 make sure that you install 
 
  1. gem for gbarcode
