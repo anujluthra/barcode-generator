@@ -14,7 +14,7 @@ supports.
 
 ## Ruby1.9 note
 
- please use ruby1.9 compatible gbarcode at [github repository by andreas](http://github.com/ahaller/gbarcode) . Good work mate.
+ please use ruby1.9 compatible gbarcode at [github repository by andreas](https://github.com/ahx/gbarcode) . Good work mate.
 
 ### USAGE:
 its as simple as saying 
